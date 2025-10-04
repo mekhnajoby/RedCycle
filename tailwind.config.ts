@@ -57,6 +57,7 @@ export default {
           dark: "hsl(var(--space-dark))",
         },
         metallic: "hsl(var(--metallic))",
+        success: "hsl(var(--success))",
       },
       backgroundImage: {
         'gradient-space': 'var(--gradient-space)',

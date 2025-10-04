@@ -29,9 +29,11 @@ const Index = () => {
               Building a circular economy for humanity's future on Mars.
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
-              <Button size="lg" className="text-lg px-8 animate-glow-pulse">
-                <Rocket className="mr-2 w-5 h-5" />
-                Explore Solutions
+              <Button size="lg" className="text-lg px-8 animate-glow-pulse" asChild>
+                <a href="/redcycle">
+                  <Rocket className="mr-2 w-5 h-5" />
+                  Launch RedCycle
+                </a>
               </Button>
               <Button size="lg" variant="secondary" className="text-lg px-8">
                 <Recycle className="mr-2 w-5 h-5" />
