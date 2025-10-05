@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, CheckCircle, Beaker, Lightbulb } from "lucide-react";
 import { Link } from "react-router-dom";
 import discoveriesImage from "@/assets/daring-discoveries.png";
+import ScenarioDetail from '@/components/ScenarioDetail';
 
 const Discoveries = () => {
   return (
@@ -48,6 +49,17 @@ const Discoveries = () => {
               />
             </div>
           </div>
+
+          <ScenarioDetail
+            title="Step-by-step Research Reuse Plan"
+            steps={[
+              { title: 'Isolate Materials', details: 'Identify carbon residue, filters, and EVA bags suitable for reuse.' },
+              { title: 'Stabilize & Clean', details: 'Purge volatile residues and clean lab equipment to avoid contamination.' },
+              { title: 'Process Carbon', details: 'Send carbon residue to the lab module for filamentization and purification.' },
+              { title: 'Repurpose Equipment', details: 'Disassemble instruments and reuse mounts or casings in the storage module.' },
+              { title: 'Validate', details: 'Test new components in low-risk settings before full deployment.' }
+            ]}
+          />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             <Card className="bg-card border-border animate-fade-in">

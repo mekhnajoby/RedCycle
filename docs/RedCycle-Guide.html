@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>RedCycle — Project Guide</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: system-ui, -apple-system, Roboto, 'Segoe UI', Arial; color:#0f172a; margin:28px; background:#fbfdff }
+    h1,h2,h3 { color:#0f172a }
+    pre { background:#f3f4f6; padding:12px; border-radius:6px; overflow:auto }
+    .card { border:1px solid #e6edf3; padding:18px; border-radius:8px; margin-bottom:16px; background:#fff }
+    .muted { color:#6b7280 }
+    .kbd { background:#111827; color:#fff; padding:2px 6px; border-radius:4px; font-family:monospace }
+    ul { margin:0 0 8px 20px }
+    li { margin-bottom:6px }
+    .pill { display:inline-block; padding:6px 10px; border-radius:999px; background:#eef2ff; color:#3730a3; font-weight:600 }
+    table { width:100%; border-collapse:collapse; margin-top:8px }
+    td, th { border:1px solid #e6eef6; padding:8px }
+  </style>
+</head>
+<body>
+  <h1>RedCycle — Project Guide </h1>
+  <p class="muted">This guide explains the project's goals, the design decisions, how the web app maps to those decisions, and answers the required deliverables for the Jezero Crater waste-reuse challenge.</p>
+
+  <div class="card">
+    <h2>Project summary — what we developed</h2>
+    <p>RedCycle is an educational, web-based prototype that simulates a constrained Mars habitat recycling system focused on immediate reuse and recycling of inorganic waste. The app models:</p>
+    <ul>
+      <li>Inventory of available materials (fresh and recovered),</li>
+      <li>a reusable <strong>waste pool</strong> that prioritizes reusing previously processed waste,</li>
+      <li>processing modules that convert inputs into recovered products with configurable efficiencies,</li>
+      <li>a map interface (Jezero Crater context) visualizing waste distribution and weighted centroids by material type,</li>
+      <li>mass-balance metrics (recovered vs wasted) and resource tradeoffs (energy, water).</li>
+    </ul>
+    <p>Why it matters: RedCycle focuses on in-situ resource utilization (ISRU) at a human-mission scale — maximizing material recovery while minimizing additional inputs (energy, water, crew time) and unusable outputs. The intended impact is to help mission designers and students reason quickly about reuse-first strategies and simple circular systems.</p>
+  </div>
+
+  <div class="card">
+    <h2>Challenge mapping — objectives answered</h2>
+    <p>The competition asks for solutions that design a sustainable system to manage and reuse inorganic waste at Jezero Crater. RedCycle addresses this by:</p>
+    <ul>
+      <li>Providing immediate-reuse behavior: wastePool is consumed first when processing (reuse-first), which reduces new inputs required from initial inventory.</li>
+      <li>Implementing secondary recovery: multi-pass processing recovers additional material from initial residues.</li>
+      <li>Exposing resource tradeoffs through Eco/Ultra Eco modes that reduce water/energy consumption and change process efficiency, encouraging minimal inputs.</li>
+      <li>Visualizing spatial aggregated data (weighted centroids) so mission planners can see where material accumulates and prioritize local collection.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Three scenarios and detailed reuse workflows</h2>
+
+    <h3>1) Residence Renovations</h3>
+    <p>Problem: After inflating a habitat and installing a 3-D cube frame to support it, the frame and protective packaging become available as waste. The crew needs materials to produce habitat outfitting and small structural parts.</p>
+    <p>Potential recyclable/reusable elements:</p>
+    <ul>
+      <li>Aluminum struts and small frames</li>
+      <li>Polymer matrix composites (carbon-fiber reinforced plastic)</li>
+      <li>Foam packaging (Zotek F30-like)</li>
+      <li>Bubble wrap and air cushions</li>
+    </ul>
+    <p>Suggested workflow (implemented as a scenario in RedCycle):</p>
+    <ol>
+      <li>Collect aluminum struts and sort by metallic vs composite. In the app, stage these materials into the 'Structural' module.</li>
+      <li>Run a recycling process (Full) that recovers metal stock for fasteners and small structural brackets. Secondary recovery converts leftover composite into filler material for interior panels.</li>
+      <li>Use recovered foam to create lightweight insulation panels or packaging for new equipment; combine with regolith if heavier structural mass is acceptable.</li>
+      <li>Leftovers after secondary recovery are placed into the wastePool for future reuse-first consumption.</li>
+    </ol>
+    <p>Benefits: recovers high-value, structural mass, reduces shipped replacement parts, and uses foam as low-mass, high-insulation outputs.</p>
+
+    <h3>2) Cosmic Celebrations</h3>
+    <p>Problem: The crew wants to celebrate with decorations and small novelty items but has no dedicated party supplies.</p>
+    <p>Potential materials: clothing, washcloths, disinfectant wipes, plastic wrap, rehydratable and drink pouches, thermal pouches.</p>
+    <p>Suggested workflow:</p>
+    <ol>
+      <li>Gather textiles and flexible packaging. Stage fabrics and plastic pouches into the 'Fabric & Soft Goods' module in the app.</li>
+      <li>Run a low-energy 'Quick' process that produces ribbons, buntings, and modular decor pieces from textile strips and laminated plastic pouches; this preserves energy and crew time.</li>
+      <li>Use recovered small containers (from pouches) for confetti holders or seed-starting trays for hydroponics experiments.</li>
+      <li>Prioritize reuse-first: if similar textile waste exists in the wastePool, use it first to avoid consuming fresh clothing kits.</li>
+    </ol>
+    <p>Benefits: fosters morale with low resource cost, demonstrates creative reuse, and generates small utility items useful beyond the celebration.</p>
+
+    <h3>3) Daring Discoveries</h3>
+    <p>Problem: Research produces devices and carbon-rich residues (from oxygen extraction experiments) and some EVA-used items that can be reused.</p>
+    <p>Potential materials: EVA waste (Nomex, nylon), filter meshes, carbon residues, resealable bags, nitrile gloves.</p>
+    <p>Suggested workflow:</p>
+    <ol>
+      <li>Collect filter meshes and carbon residues; stage into an 'Experimental Recovery' module that is tuned for carbon recovery and filter refurbishment.</li>
+      <li>Run Full processing to extract usable carbon (for composite filler, or as feedstock for small printed tools) and to refurbish meshes (cleaning, bonding).</li>
+      <li>Surplus carbon can be combined with binders (small amounts of polymer) to produce low-strength but useful composite parts or radiation shielding inserts by mixing with regolith.</li>
+      <li>Refurbished fabric (EVA, Nomex) can be repurposed into seals, insulation patches, or layered to make tool pouches.</li>
+    </ol>
+    <p>Benefits: recovers experimental outputs into useful materials, reduces waste from science operations, and increases overall mission resource efficiency.</p>
+  </div>
+
+  <div class="card">
+    <h2>System design overview (how RedCycle maps to a real system)</h2>
+    <p>At a glance, the app models a compact waste-management infrastructure with these components:</p>
+    <ul>
+      <li><strong>Collection & Sorting</strong>: crew collects waste items and assigns material keys (aluminum, textiles, foam, carbon).</li>
+      <li><strong>Waste Pool</strong>: stores leftovers from processes and makes them available for the next reuse pass (reuse-first policy).</li>
+      <li><strong>Processing Modules</strong>: small-footprint workstations with tunable efficiencies. Each module consumes inputs, uses energy/water, and yields recovered products + residuals.</li>
+      <li><strong>Secondary Recovery</strong>: additional recovery pass applied to residual waste to maximize mass recovered before final unusable output.</li>
+      <li><strong>Distribution</strong>: recovered products are placed into product inventory for reuse in habitat outfitting.</li>
+    </ul>
+    <p>Design considerations implemented in the prototype:</p>
+    <ul>
+      <li>Minimize crew time — the interface supports quick vs full processing choices. Quick reduces crew time and resource cost but lowers efficiency.</li>
+      <li>Minimize water use — Eco/Ultra Eco modes lower water usage and push the system to rely on secondary mechanical or thermal recovery strategies where appropriate.</li>
+      <li>Localize processing — map centroids help prioritize collection routes, reducing extra crew EVA time.</li>
+      <li>Re-use outputs of processing where possible (e.g., waste heat for preheating processes, wastewater reuse) — described as extension items in the guide.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Data & implementation mapping (developer-oriented)</h2>
+    <p>The prototype code maps the physical system to simple data structures and functions. Key files and shapes:</p>
+    <pre><code>// src/hooks/useWasteManagement.ts
+// - inventory: { [key]: { name, kg } }
+// - wastePool: { [key]: kg }
+// - products: { [key]: { name, kg } }
+// - processMaterials(moduleId, staged[], mode: 'quick'|'full', optimize:boolean)
+//   returns { recoveredKg, wastedKg, outputs }
+
+// src/components/Mars3DMap.tsx
+// - visualizes locations and computes weighted centroids per material type
+
+// src/pages/RedCycle.tsx
+// - UI wiring: drag/drop, staging, module actions, eco toggles
+</code></pre>
+    <p>Mass-balance is explicitly tracked: the hook maintains <code>recoveredTotal</code> and <code>wastedTotal</code>, and all module runs update these counters and persist them to <code>localStorage</code> so the mission state survives page reloads.</p>
+  </div>
+
+  <div class="card">
+    <h2>Mass-balance and metrics</h2>
+    <p>The core metric is simple: for any process run, input mass = recovered mass + wasted mass (modulo rounding and secondary recovery accounting). Implementation details:</p>
+    <ul>
+      <li>Processing applies an efficiency factor per module: recovered = input * efficiency.</li>
+      <li>Secondary recovery reprocesses a fixed fraction of initial waste to extract additional low-grade material.</li>
+      <li>Waste pool accumulation = sum leftover wastes across runs; the system consumes the pool first when staging new jobs.</li>
+      <li>The HUD shows cumulative recoveredTotal, wastedTotal, and available-for-reuse (wastePool total).</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Resource optimization & minimization</h2>
+    <p>Key strategies used in the prototype to minimize inputs and unusable outputs:</p>
+    <ul>
+      <li>Reuse-first pool: prioritizes previously-processed material to avoid fresh inventory use.</li>
+      <li>Eco/Ultra Eco modes: apply multipliers to energy/water cost and can change process choices; Ultra Eco reduces resource draw further with a modest recovery penalty.</li>
+      <li>Secondary recovery: increases total recovered mass while often costing little additional water (mechanical sieving, sorting) — modeled in the prototype as a second pass with a smaller recovery fraction.</li>
+      <li>Encourage local aggregation: the map centroids help plan collection to reduce EVA time.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Health & safety considerations</h2>
+    <p>The project intentionally avoids any process that would create the following on Mars:</p>
+    <ul>
+      <li>Toxic emissions or harmful chemical byproducts</li>
+      <li>PFAS generation or release</li>
+      <li>Microplastic dispersal into wastewater or the habitat environment</li>
+    </ul>
+    <p>Notes and mitigations:</p>
+    <ul>
+      <li>No open burning or incineration — all thermal processes are controlled and contained in hypothetical module enclosures.</li>
+      <li>Wastewater handling must include filtration and reuse; any microplastic risk is handled by mechanical filtration and retention (not modeled in detail in the prototype).</li>
+      <li>Crew safety: crew tasks are minimized using quick versus full modes, and modules are imagined as glovebox-style, low-hazard enclosures for handling EVA and chemical residues.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>How to use the web app (step-by-step)</h2>
+    <ol>
+      <li>Open the RedCycle application (served locally with Vite at <code>http://localhost:8080</code> when running locally).</li>
+      <li>Explore the Inventory panel: drag an inventory row to a Module Panel to stage material for processing.</li>
+      <li>Use the Module Panel to choose Quick or Full processing. Observe consumed energy/water impacts in the HUD.</li>
+      <li>Check the HUD for recovered/wasted totals and the wastePool available-for-reuse metric.</li>
+      <li>Open the Mars map: click a legend type to reveal per-location markers and view weighted centroids to prioritize collection.</li>
+      <li>Try the scenario pages (Residence, Celebrations, Discoveries) for suggested step-by-step examples and workflows preconfigured for the materials in each scenario.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>Project summary & required narrative answers</h2>
+    <h3>What did you develop?</h3>
+    <p>A small, interactive web prototype that models a reuse-first, multi-module recycling system for a Mars habitat at Jezero Crater. It includes inventory, a waste pool, processing modules with tunable modes, mass-balance tracking, and a map visualizer for collection planning.</p>
+
+    <h3>How does it address the challenge?</h3>
+    <p>By prioritizing reuse-first behavior, implementing secondary recovery, and making resource tradeoffs explicit, it demonstrates practical strategies to maximize recovery, minimize fresh inputs, and limit unusable outputs. Scenario workflows show how specific mission activities (habitat unpacking, celebrations, experimental residues) can feed into the system.</p>
+
+    <h3>Why is it important?</h3>
+    <p>Small design choices (reuse-first, secondary recovery, local aggregation) can significantly reduce resupply needs and increase mission resilience. The prototype lets stakeholders experiment with these choices quickly and see mass-balance outcomes.</p>
+
+    <h3>What tools / code / hardware used?</h3>
+    <ul>
+      <li>Frontend: React + TypeScript, Vite dev server</li>
+      <li>Styling: Tailwind CSS utilities and shadcn UI components</li>
+      <li>Map & visualization: Canvas-based component with DOM tooltip overlay</li>
+      <li>Local persistence: browser localStorage</li>
+      <li>Development environment: Node.js, npm</li>
+    </ul>
+
+    <h3>How is the project creative?</h3>
+    <p>It adapts simple, real-world circular economy patterns to the constraints of an off-world habitat. The wastePool reuse-first policy and the map-centroid visualization make the prototype practical: they combine process optimization with spatial planning in a compact, educational tool.</p>
+
+    <h3>What factors were considered?</h3>
+    <p>Mass balance, energy and water tradeoffs, crew time, local collection logistics, regenerative reuse (wastePool), and safety (avoid incineration, avoid PFAS/microplastics). We also assumed continuous electricity and limited water available, matching the challenge guidance.</p>
+  </div>
+
+  <div class="card">
+    <h2>AI usage disclosure</h2>
+    <p>Per the submission policy, we disclose how AI tools were used in the project:</p>
+    <ul>
+      <li>Code & logic: portions of the application code (hook logic, map updates, documentation) were drafted with assistance from an AI coding assistant to accelerate iteration. All generated code was reviewed and adapted by a human developer before being committed to the repository.</li>
+      <li>Images & media: none of the core visual assets in the repo are AI-generated. If AI-generated images are added, they will be marked with a visible watermark per the rules.</li>
+      <li>Text & documentation: this guide was produced and refined with AI assistance; this disclosure appears in the document metadata visible to reviewers.</li>
+  
+    </ul>
+    <p>If you plan to submit this project, include this paragraph in your written submission describing AI use and attach or embed any watermarked images as required by the competition rules.</p>
+  </div>
+
+  <div class="card">
+    <h2>Limitations and recommended next steps</h2>
+    <ul>
+      <li>Replace the simple browser <code>prompt()</code>-based map editor with an in-app modal that stores explicit location→material mappings.</li>
+      <li>Add per-material wastePool breakdown and a one-click "use all waste" action in the HUD.</li>
+      <li>Model time and energy budgets per module for scheduling and capacity planning.</li>
+      <li>Add unit and integration tests for <code>processMaterials</code> to validate mass-balance under edge cases (zero input, pool-only, large numbers).</li>
+      <li>Explore automated PDF export in CI with Pandoc or headless Chrome to generate submission-ready artifacts.</li>
+    </ul>
+  </div>
+
+  <div class="card muted">
+    <p>Generated: October 5, 2025 — this file documents the RedCycle prototype, how it maps to the Jezero Crater challenge, and answers the project's required narrative prompts.</p>
+  </div>
+</body>
+</html>

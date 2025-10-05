@@ -21,19 +21,17 @@ export const WasteInventoryPanel = ({ inventory, onDragStart }: WasteInventoryPr
         {Object.entries(inventory).map(([key, item]) => (
           <div
             key={key}
-            className="bg-card/30 border border-border rounded-lg p-3 hover:border-primary/50 transition-all"
+            draggable
+            onDragStart={() => onDragStart(key)}
+            onClick={() => onDragStart(key)}
+            className="bg-card/30 border border-border rounded-lg p-3 hover:border-primary/50 transition-all cursor-grab active:cursor-grabbing"
           >
             <div className="flex justify-between items-center">
               <div className="flex-1">
                 <div className="font-semibold text-foreground">{item.name}</div>
                 <div className="text-xs text-muted-foreground mt-1">{key}</div>
               </div>
-              <div
-                draggable
-                onDragStart={() => onDragStart(key)}
-                onClick={() => onDragStart(key)}
-                className="bg-primary/10 border border-primary/30 rounded-lg px-3 py-2 cursor-grab active:cursor-grabbing hover:bg-primary/20 transition-colors"
-              >
+              <div className="bg-primary/10 border border-primary/30 rounded-lg px-3 py-2 hover:bg-primary/20 transition-colors">
                 <div className="text-sm font-bold text-primary">{item.kg} kg</div>
               </div>
             </div>

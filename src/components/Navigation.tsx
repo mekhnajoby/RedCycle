@@ -14,7 +14,7 @@ const Navigation = () => {
           <Link to="/" className="flex items-center gap-2 group">
             <Rocket className="w-6 h-6 text-primary group-hover:animate-float" />
             <span className="text-xl font-bold bg-gradient-mars bg-clip-text text-transparent">
-              Mars Waste Solutions
+              RedCycle
             </span>
           </Link>
           

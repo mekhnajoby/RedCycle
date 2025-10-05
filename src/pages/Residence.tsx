@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, CheckCircle, Layers, Wrench } from "lucide-react";
 import { Link } from "react-router-dom";
 import residenceImage from "@/assets/residence-renovation.png";
+import ScenarioDetail from '@/components/ScenarioDetail';
 
 const Residence = () => {
   return (
@@ -49,6 +50,17 @@ const Residence = () => {
               />
             </div>
           </div>
+
+          <ScenarioDetail
+            title="Step-by-step Reuse Plan"
+            steps={[
+              { title: 'Survey & Sort', details: 'Inventory aluminum struts, foam, and composites; tag damaged vs reusable pieces.' },
+              { title: 'Disassemble', details: 'Remove fasteners and separate aluminum from composite joints for safe reworking.' },
+              { title: 'Process Foam', details: 'Shred foam, compress into insulation blocks in the foam module using low energy runs.' },
+              { title: 'Repurpose Frames', details: 'Cut and re-bend aluminum struts into shelving and mounts via the recycle module.' },
+              { title: 'Finish & Test', details: 'Assemble shelving, attach mounts, and perform structural checks before deployment.' }
+            ]}
+          />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             <Card className="bg-card border-border animate-fade-in">

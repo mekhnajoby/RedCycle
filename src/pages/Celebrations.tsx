@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, CheckCircle, PartyPopper, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import celebrationsImage from "@/assets/cosmic-celebrations.png";
+import ScenarioDetail from '@/components/ScenarioDetail';
 
 const Celebrations = () => {
   return (
@@ -48,6 +49,17 @@ const Celebrations = () => {
               />
             </div>
           </div>
+
+          <ScenarioDetail
+            title="Step-by-step Celebration Plan"
+            steps={[
+              { title: 'Collect Materials', details: 'Gather fabrics, packaging, and lightweight plastics used in daily operations.' },
+              { title: 'Clean & Sanitize', details: 'Wipe down fabrics and pouches to remove contaminants before crafting.' },
+              { title: 'Cut & Shape', details: 'Use scissors and templates to create banners, hats, and decorations.' },
+              { title: 'Temporary Assembly', details: 'Assemble decorations using reusable fasteners so they can be reclaimed after the event.' },
+              { title: 'Recycle After Use', details: 'Return used decorations to the foam or recycle module for processing back into usable materials.' }
+            ]}
+          />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             <Card className="bg-card border-border animate-fade-in">

@@ -72,20 +72,24 @@ export const ModulePanel = ({ currentModule, inventory, heldItem, onProcess }: M
           onDragLeave={() => setDragOver(false)}
           onDrop={handleDrop}
           className={`
-            min-h-[120px] border-2 border-dashed rounded-lg p-4 transition-all
-            flex items-center justify-center text-center
+            min-h-[220px] md:min-h-[260px] border-2 border-dashed rounded-lg p-4 transition-all
+            flex justify-center text-center
+            ${staged.length === 0 ? 'items-center' : 'items-start flex-col gap-3'}
             ${dragOver 
               ? 'border-primary bg-primary/10' 
               : 'border-border bg-background/50'
             }
           `}
         >
-          <p className="text-sm text-muted-foreground">
-            {staged.length === 0 
-              ? 'Drop materials here to process' 
-              : `${staged.length} material(s) staged`
-            }
-          </p>
+          {staged.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              Drop materials here to process
+            </p>
+          ) : (
+            <p className="text-sm text-muted-foreground w-full text-center">
+              {`${staged.length} material(s) staged — drag more or process`}
+            </p>
+          )}
         </div>
       </div>
 

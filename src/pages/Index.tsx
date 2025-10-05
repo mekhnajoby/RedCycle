@@ -1,11 +1,8 @@
 import Navigation from "@/components/Navigation";
-import Mars3D from "@/components/Mars3D";
-import ScenarioCard from "@/components/ScenarioCard";
+// Mars3D replaced with external NASA Eyes iframe
 import { Button } from "@/components/ui/button";
 import { Sparkles, Recycle, Rocket } from "lucide-react";
-import residenceImage from "@/assets/residence-renovation.png";
-import celebrationsImage from "@/assets/cosmic-celebrations.png";
-import discoveriesImage from "@/assets/daring-discoveries.png";
+// ...existing code...
 
 const Index = () => {
   return (
@@ -15,8 +12,13 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero" />
-        <div className="absolute inset-0 opacity-60">
-          <Mars3D />
+        <div className="absolute inset-0 opacity-100">
+          <iframe
+            src="https://eyes.nasa.gov/apps/solar-system/#/mars"
+            title="NASA Eyes - Mars"
+            allowFullScreen
+            className="w-full h-full border-0"
+          />
         </div>
         
         <div className="container mx-auto px-6 relative z-10 text-center">
@@ -35,9 +37,11 @@ const Index = () => {
                   Launch RedCycle
                 </a>
               </Button>
-              <Button size="lg" variant="secondary" className="text-lg px-8">
-                <Recycle className="mr-2 w-5 h-5" />
-                Learn More
+              <Button size="lg" variant="secondary" className="text-lg px-8" asChild>
+                <a href="#the-challenge">
+                  <Recycle className="mr-2 w-5 h-5" />
+                  Learn More
+                </a>
               </Button>
             </div>
           </div>
@@ -51,8 +55,8 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Mission Overview */}
-      <section className="py-20 bg-card relative">
+  {/* Mission Overview */}
+  <section id="the-challenge" className="py-20 bg-card relative">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center mb-16 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
@@ -100,46 +104,7 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Scenario Modules */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
-              Mission Scenarios
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Explore three critical waste management scenarios on Mars at Jezero Crater. 
-              Each module addresses unique challenges in sustainable resource utilization.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <ScenarioCard
-              title="Residence Renovations"
-              description="Repurpose inflatable habitat structures, aluminum frames, and foam packaging into useful materials for Mars base expansion."
-              image={residenceImage}
-              link="/residence"
-              delay={0}
-            />
-            
-            <ScenarioCard
-              title="Cosmic Celebrations"
-              description="Transform everyday materials like clothing, wipes, and food packaging into creative party supplies for astronaut morale."
-              image={celebrationsImage}
-              link="/celebrations"
-              delay={100}
-            />
-            
-            <ScenarioCard
-              title="Daring Discoveries"
-              description="Reuse experimental equipment and extracted carbon from oxygen production to create valuable tools and materials."
-              image={discoveriesImage}
-              link="/discoveries"
-              delay={200}
-            />
-          </div>
-        </div>
-      </section>
+  {/* Mission Scenarios removed per request */}
       
       {/* Footer */}
       <footer className="py-12 bg-card border-t border-border">

@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RedCycle — Demo Slides</title>
+  <style>
+    html,body{height:100%;margin:0}
+    body{font-family:system-ui, -apple-system, Roboto, 'Segoe UI', Arial;display:flex;align-items:center;justify-content:center;background:#0f172a;color:#e6eef6}
+    .deck{width:100%;max-width:1000px;height:640px;position:relative;box-shadow:0 10px 30px rgba(2,6,23,0.6);overflow:hidden;border-radius:10px;background:linear-gradient(180deg,#0b1220 0%,#071022 100%)}
+    .slide{position:absolute;inset:0;padding:48px;display:flex;flex-direction:column;gap:12px;align-items:flex-start;justify-content:center;transition:opacity 300ms,transform 300ms;opacity:0;transform:translateX(50px)}
+    .slide.active{opacity:1;transform:translateX(0)}
+    h1{font-size:34px;margin:0}
+    h2{font-size:22px;margin:0;color:#c7d2fe}
+    p{margin:0;color:#cbd5e1}
+    ul{margin:8px 0 0 20px}
+    .footer{position:absolute;right:18px;bottom:14px;font-size:13px;color:#94a3b8}
+    .controls{position:absolute;left:18px;bottom:14px;font-size:13px;color:#94a3b8}
+    .note{margin-top:12px;color:#cbd5e1;font-size:14px}
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">
+
+    <section class="slide active" data-index="0">
+      <h1>RedCycle</h1>
+      <h2>Reuse-first recycling for a Mars habitat at Jezero Crater</h2>
+      <p class="note">A prototype that models inventory, a waste pool, modular processing, mass-balance, and spatial planning.</p>
+    </section>
+
+    <section class="slide" data-index="1">
+      <h2>Challenge & Objectives</h2>
+      <ul>
+        <li>Design a system to manage and reuse inorganic waste on Mars (Jezero Crater).</li>
+        <li>Maximize resource recovery, minimize energy/water use and unusable outputs.</li>
+        <li>Focus on immediate reuse and in-situ resource utilization (ISRU).</li>
+      </ul>
+    </section>
+
+    <section class="slide" data-index="2">
+      <h2>What we built</h2>
+      <ul>
+        <li>Inventory & waste pool (reuse-first policy)</li>
+        <li>Processing modules (Quick / Full) + secondary recovery</li>
+        <li>Hud: recovered vs wasted, energy/water tradeoffs, Eco modes</li>
+        <li>Map: per-material centroids and location drill-down</li>
+      </ul>
+    </section>
+
+    <section class="slide" data-index="3">
+      <h2>Scenario Workflows</h2>
+      <p><strong>Residence Renovations:</strong> reclaim aluminum & foam to build fixtures and insulation.</p>
+      <p><strong>Cosmic Celebrations:</strong> reuse textiles & pouches for decorations and small containers.</p>
+      <p><strong>Daring Discoveries:</strong> recover carbon and refurbish filters for experimental reuse.</p>
+    </section>
+
+    <section class="slide" data-index="4">
+      <h2>How it reduces inputs & waste</h2>
+      <ul>
+        <li>Consume wastePool before fresh inventory — fewer new inputs.</li>
+        <li>Secondary recovery extracts extra mass from residues.</li>
+        <li>Eco/Ultra Eco modes lower water/energy, trading intensity for efficiency.</li>
+      </ul>
+    </section>
+
+    <section class="slide" data-index="5">
+      <h2>Demo walkthrough (quick)</h2>
+      <ol>
+        <li>Drag inventory items to a Module Panel to stage material.</li>
+        <li>Choose Quick or Full processing; observe HUD updates.</li>
+        <li>Open the map and click a legend type to show locations and centroids.</li>
+      </ol>
+    </section>
+
+    <section class="slide" data-index="6">
+      <h2>Next steps & contact</h2>
+      <ul>
+        <li>Replace prompt-based map editor with modal + persisted mappings.</li>
+        <li>Add per-material wastePool UI and unit tests for mass-balance.</li>
+        <li>Contact: view the repo for code & run locally at <span style="color:#a5b4fc">http://localhost:8080</span>.</li>
+      </ul>
+    </section>
+
+    <div class="controls">←/→ or click to navigate · Esc to restart</div>
+    <div class="footer">RedCycle — Demo • Oct 5, 2025</div>
+  </div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    let idx = 0;
+    function show(i){ slides.forEach(s=>s.classList.remove('active')); slides[i].classList.add('active'); idx = i }
+    document.addEventListener('keydown', e=>{
+      if(e.key === 'ArrowRight' || e.key === ' '){ show(Math.min(idx+1, slides.length-1)) }
+      if(e.key === 'ArrowLeft'){ show(Math.max(idx-1,0)) }
+      if(e.key === 'Escape'){ show(0) }
+    });
+    // click navigation
+    document.getElementById('deck').addEventListener('click', e=>{
+      const w = document.getElementById('deck').clientWidth;
+      const x = e.clientX - document.getElementById('deck').getBoundingClientRect().left;
+      if(x > w/2) show(Math.min(idx+1, slides.length-1)); else show(Math.max(idx-1,0));
+    });
+  </script>
+</body>
+</html>
